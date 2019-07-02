@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html ng-app="myApp" ng-strict-di>
+<head>
+    <title>Angular ES6 Sample</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body ng-controller="HomeController as ctrl">
+
+<!--	Hello {{ ctrl.data.name }}!-->
+
+<div class="w-100 flex items-center justify-center min-vh-100">
+    <div class="mw7 w-100 bg-white-80 br2 mv4">
+
+        <div class="f4 b pa4">
+            Most popular Books of All time
+        </div>
+
+        <div class="overflow-auto">
+            <table class="f6 w-100 center " cellspacing="0">
+                <colgroup>
+                    <col span="1" style="width: 50%;">
+                    <col span="1" style="width: 15%;">
+                    <col span="1" style="width: 20%;">
+                    <col span="1" style="width: 15%;">
+                </colgroup>
+                <thead class="ttu silver">
+                <tr>
+                    <th class=" tl pl4 pb3 ">Title</th>
+                    <th class=" tl pb3  tc">Published</th>
+                    <th class=" tl pb3  tc">Rating</th>
+                    <th class=" tl pb3  tc pr4">Buy On</th>
+                </tr>
+                </thead>
+                <tbody ng-repeat="(key, value) in ctrl.data.data"
+                       class="lh-copy ttc">
+                <tr>
+                    <td>
+                        <div class="flex flex-row pv3 pr3 link dim pointer"
+                            ng-click="ctrl.clickBook(key)">
+                            <img ng-src="{{value.image}}"
+                                 class="ml4 mr3 br2"/>
+                            <div class="">
+                                    <span class="b f6">
+                                        {{ value.title }}
+                                    </span>
+                                <br>
+                                <span class="f6 silver">
+                                        {{ value.author }}
+                                    </span>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="tc b f6 fw6">
+                        {{ value.published }}
+                    </td>
+                    <td class="tc b f6 fw6">
+                        {{ value.rating }}/10
+                    </td>
+                    <td class="pr4">
+                        <div ng-if="value.stores.length > 0"
+                             class="w-100 flex items-center justify-center flex-column fw6">
+                            <a ng-repeat="(key, store) in value.stores"
+                               ng-href="store.url"
+                               class="link dim pointer green">
+                                {{ store.name }}
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                <tr ng-if="value.showDescription === true">
+                    <td colspan="4" class="ph4 pv2 tj">
+                        <span class="ttn">
+                        {{ value.description }}
+                        </span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="w-100 flex flex-row items-center justify-center">
+
+            <a ng-disabled="ctrl.pagination.page === 1"
+               ng-click="ctrl.pagePrevious()">
+                <i class="fa fa-chevron-left link dim pointer pa3 silver"
+                   aria-hidden="true"></i>
+            </a>
+
+            <span class="f6 fw6">
+                Page {{ctrl.pagination.page}} of {{ctrl.data.size / ctrl.pagination.size}}
+            </span>
+
+            <a ng-disabled="ctrl.pagination.page === ctrl.data.size / ctrl.pagination.size"
+               ng-click="ctrl.pageNext()">
+                <i class="fa fa-chevron-right link dim pointer pa3 silver"
+                   aria-hidden="true"></i>
+            </a>
+
+        </div>
+
+    </div>
+</div>
+
+
+<script src="libs/angular.min.js"></script>
+<script src="scripts/app.min.js"></script>
+</body>
+</html>

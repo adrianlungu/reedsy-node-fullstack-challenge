@@ -1,0 +1,24 @@
+@import "../../node_modules/tachyons/css/tachyons";
+
+html, body {
+  background-color: #F5F1ED;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.something {
+  color: #F5F1ED;
+}
+
+tbody {
+  &:nth-child(even) {
+    background-color: transparent;
+  }
+  &:nth-child(odd) {
+    background-color: #faf9f7;
+  }
+}
+
+a[disabled] {
+  opacity: 0.4;
+  cursor: none;
+}
